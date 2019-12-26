@@ -7,17 +7,17 @@ HEIGHT = 600
 
 
 class Ball:
-    
     def __init__(self):
         self.R = randint(20, 30)
         self.x = randint(self.R, WIDTH - self.R)
         self.y = randint(self.R, HEIGHT - self.R)
-        self.dx = choice([dx for dx in range(-6, 7) if dx != 0])
-        self.dy = choice([dy for dy in range(-6, 7) if dy != 0])
+        self.dx = choice([dx for dx in range(-4, 5) if dx != 0])
+        self.dy = choice([dy for dy in range(-4, 5) if dy != 0])
         self.ball = canvas.create_oval(self.x - self.R, 
                                        self.y - self.R,
                                        self.x + self.R,
-                                       self.y + self.R, fill="green")
+                                       self.y + self.R,
+                                       fill="green", outline="green")
         
         canvas.tag_bind(self.ball, "<Button-1>", self.click)
 
@@ -33,11 +33,7 @@ class Ball:
         canvas.move(self.ball, self.dx, self.dy)
 
     def click(self, event):
-        click_x = event.x
-        click_y = event.y
-        if click_x >= self.x - self.R and click_x <= self.x + self.R:
-            if click_y >= self.y - self.R and click_y <= self.y + self.R:
-                canvas.itemconfig(self.ball, fill="red")
+        canvas.itemconfig(self.ball, fill="red", outline="red")
 
 
 def tick():
@@ -52,7 +48,7 @@ def main():
     root = tk.Tk()
     canvas = tk.Canvas(width=WIDTH, height=HEIGHT, bg="white")
     canvas.pack()
-    balls = [Ball() for i in range(10)]
+    balls = [Ball() for i in range(15)]
     tick()
     root.mainloop()
 
